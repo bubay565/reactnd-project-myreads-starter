@@ -172,3 +172,7 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+.book-image {
+    width: 150px;
+    height: 170px;
+}
