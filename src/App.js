@@ -20,15 +20,21 @@ class BooksApp extends React.Component {
             this.setState({ books })
     )}
     
+    updateBookShelf = (book) => {
+        this.setState((state) => ({
+            books: state.books.filter((b) => b.id !== book.id)
+        }))
+    }
 
-  render() {
-    return (
-      <div className="app">
-        <BookShelves
-            books={this.state.books}
-        />
-      </div>
-    )
-  }
+    render() {
+        return (
+            <div className="app">
+                <BookShelves
+                    updateBookShelf={this.updateBookShelf}
+                    books={this.state.books}
+                />
+            </div>
+        )
+    }
 }
 export default BooksApp
