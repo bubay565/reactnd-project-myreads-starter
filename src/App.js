@@ -1,9 +1,12 @@
 import React from 'react'
+import { Component } from 'react'
+import { Route } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import BookShelves from './BookShelves'
+import AddBooks from './AddBooks'
 import './App.css'
 
-class BooksApp extends React.Component {
+class BooksApp extends Component {
     state = {
     /**
      * TODO: Instead of using this state variable to keep track of which page
@@ -30,10 +33,17 @@ class BooksApp extends React.Component {
     render() {
         return (
             <div className="app">
-                <BookShelves
-                    updateBookShelf={this.updateBookShelf}
-                    books={this.state.books}
-                />
+                <Route exact path="/" render={() => (
+                    <BookShelves
+                        updateBookShelf={this.updateBookShelf}
+                        books={this.state.books}
+                    />
+                )}/>
+                
+                <Route path="/search" render={() => (
+                    <AddBooks updateBookShelf={this.updateBookShelf}
+                    />                             
+                )}/>                
             </div>
         )
     }
