@@ -1,27 +1,29 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import Books from './Books'
-import * as BooksAPI from './BooksAPI'
-//import PropTypes from 'prop-types'
-import escapeRegExp from 'escape-string-regexp'
 import sortBy from 'sort-by'
+import PropTypes from 'prop-types'
 
 class AddBooks extends Component {
+    static propTypes = {
+        booksOnDisplay: PropTypes.array.isRequired,
+        updateBookShelf: PropTypes.func.isRequired,
+        onSearch:PropTypes.func
+    }
+
     state = {
         query: ''
     }
 
     updateQuery = (query) => {
         this.setState({query: query.trim() })
+        this.props.onSearch(event.target.value, 20)
     }
     
     render(){    
-        let booksOnDisplay = []
-        if(this.state.query){
-            const match = new RegExp(escapeRegExp(this.state.query), 'i')
-            booksOnDisplay = BooksAPI.search(this.state.query, 20).then(result => {
-                result.filter((book) => match.test(book.title)).sort(sortBy('title'))
-            })
+        let booksOnDisplay = this.props.booksOnDisplay
+        if(booksOnDisplay.length > 0){
+            booksOnDisplay.sort(sortBy('title'))
         }
         
         return(
@@ -33,7 +35,7 @@ class AddBooks extends Component {
                             type="text" 
                             placeholder="Search by title or author"
                             value={this.state.query}
-                            onChange={(event) => this.updateQuery(event.target.value)}
+                            onChange={(event) => this.props.onSearch(event.target.value, 20)}
                         />
                     </div>
                 </div>

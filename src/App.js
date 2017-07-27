@@ -8,13 +8,8 @@ import './App.css'
 
 class BooksApp extends Component {
     state = {
-    /**
-     * TODO: Instead of using this state variable to keep track of which page
-     * we're on, use the URL in the browser's address bar. This will ensure that
-     * users can use the browser's back and forward buttons to navigate between
-     * pages, as well as provide a good URL they can bookmark and share.
-     */
-        books: []
+        books: [],
+        booksOnDisplay: []
     }
     
     componentDidMount() {
@@ -29,6 +24,12 @@ class BooksApp extends Component {
             )
         })
     }
+    
+    queryBookLibrary = (query, max) => {
+        BooksAPI.search(query, max).then((booksOnDisplay) => {
+            this.setState({ booksOnDisplay })
+        })
+    }
 
     render() {
         return (
@@ -41,7 +42,10 @@ class BooksApp extends Component {
                 )}/>
                 
                 <Route path="/search" render={() => (
-                    <AddBooks updateBookShelf={this.updateBookShelf}
+                    <AddBooks 
+                        updateBookShelf={this.updateBookShelf}
+                        onSearch={this.queryBookLibrary}
+                        booksOnDisplay={this.state.booksOnDisplay}
                     />                             
                 )}/>                
             </div>
