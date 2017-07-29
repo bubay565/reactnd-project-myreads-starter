@@ -12,15 +12,9 @@ class AddBooks extends Component {
         query: PropTypes.string.isRequired
     }
 
-
-    /*updateQuery = (query) => {
-        this.setState({query: query.trim() })
-        this.props.onSearch(event.target.value, 20)
-    }*/
-    
     render(){    
         let booksOnDisplay = this.props.booksOnDisplay
-        if(booksOnDisplay && booksOnDisplay.length > 0){
+        if(booksOnDisplay.length > 0){
             booksOnDisplay.sort(sortBy('title'))
         }
         
