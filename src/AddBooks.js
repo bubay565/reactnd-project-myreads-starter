@@ -8,21 +8,19 @@ class AddBooks extends Component {
     static propTypes = {
         booksOnDisplay: PropTypes.array.isRequired,
         updateBookShelf: PropTypes.func.isRequired,
-        onSearch:PropTypes.func
+        searchLibrary:PropTypes.func,
+        query: PropTypes.string.isRequired
     }
 
-    state = {
-        query: ''
-    }
 
-    updateQuery = (query) => {
+    /*updateQuery = (query) => {
         this.setState({query: query.trim() })
         this.props.onSearch(event.target.value, 20)
-    }
+    }*/
     
     render(){    
         let booksOnDisplay = this.props.booksOnDisplay
-        if(booksOnDisplay.length > 0){
+        if(booksOnDisplay && booksOnDisplay.length > 0){
             booksOnDisplay.sort(sortBy('title'))
         }
         
@@ -34,8 +32,8 @@ class AddBooks extends Component {
                         <input 
                             type="text" 
                             placeholder="Search by title or author"
-                            value={this.state.query}
-                            onChange={(event) => this.props.onSearch(event.target.value, 20)}
+                            value={this.props.query}
+                            onChange={(event) => this.props.searchLibrary(event.target.value, 20)}
                         />
                     </div>
                 </div>

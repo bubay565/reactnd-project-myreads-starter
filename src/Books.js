@@ -3,16 +3,16 @@ import React, { Component } from 'react'
 class Books extends Component {
     
     render(){
-        let books = this.props.books
+        let books = Array.from(new Set(this.props.books))
         
         return(
             <div className="bookshelf-books">
                 <ol className="books-grid">
                     {books.map((book) =>
-                        <li key={book.id}>
+                        <li key={book.id + book.pageCount}>
                             <div className="book">
                                 <div className="book-top">
-                                <div className="book-cover book-image" style={{backgroundImage: `url(${book.imageLinks.smallThumbnail})`}}>
+                                <div className="book-cover book-image" style={{backgroundImage: `url(${book.imageLinks && book.imageLinks.smallThumbnail})`}}>
                                     </div>
                                     <div className="book-shelf-changer">
                                         <select defaultValue={book.shelf} onChange={(event) => this.props.updateBookShelf(book, event.target.value)}>
@@ -25,7 +25,7 @@ class Books extends Component {
                                     </div>
                                 </div>
                                 <div className="book-title">{book.title}</div>
-                                <div className="book-authors">{book.authors.map((author, index) => 
+                                <div className="book-authors">{book.authors && book.authors.map((author, index) => 
                                     <p key={index}>{author}</p>)}
                                 </div>
                             </div>   

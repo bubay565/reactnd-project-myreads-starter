@@ -9,7 +9,8 @@ import './App.css'
 class BooksApp extends Component {
     state = {
         books: [],
-        booksOnDisplay: []
+        booksOnDisplay: [],
+        query: ''
     }
     
     componentDidMount() {
@@ -26,8 +27,11 @@ class BooksApp extends Component {
     }
     
     queryBookLibrary = (query, max) => {
-        BooksAPI.search(query, max).then((booksOnDisplay) => {
+        this.setState({ query })
+        BooksAPI.search(this.state.query.trim(), max).then((booksOnDisplay) => {
             this.setState({ booksOnDisplay })
+        }).catch(e => {
+            console.log(e)
         })
     }
 
@@ -44,8 +48,9 @@ class BooksApp extends Component {
                 <Route path="/search" render={() => (
                     <AddBooks 
                         updateBookShelf={this.updateBookShelf}
-                        onSearch={this.queryBookLibrary}
+                        searchLibrary={this.queryBookLibrary}
                         booksOnDisplay={this.state.booksOnDisplay}
+                        query={this.state.query}
                     />                             
                 )}/>                
             </div>
