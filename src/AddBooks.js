@@ -12,7 +12,8 @@ class AddBooks extends Component {
         query: PropTypes.string.isRequired
     }
 
-    render(){    
+    render(){ 
+        console.log('Props: ', this.props)
         let booksOnDisplay = this.props.booksOnDisplay
         if(booksOnDisplay.length > 0){
             booksOnDisplay.sort(sortBy('title'))
@@ -32,12 +33,10 @@ class AddBooks extends Component {
                     </div>
                 </div>
                 <div className="search-books-results">
-                    <ol className="books-grid">
-                        <Books 
-                            books={booksOnDisplay}
-                            updateBookShelf={this.props.updateBookShelf}
-                        />    
-                    </ol>
+                    <Books 
+                        books={booksOnDisplay}
+                        updateBookShelf={this.props.updateBookShelf}
+                    />    
                 </div>
             </div>
         )

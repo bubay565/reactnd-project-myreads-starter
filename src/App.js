@@ -29,6 +29,10 @@ class BooksApp extends Component {
     queryBookLibrary = (query, max) => {
         this.setState({ query })
         BooksAPI.search(this.state.query.trim(), max).then((booksOnDisplay) => {
+            if(!booksOnDisplay || booksOnDisplay.error){
+                this.setState({ booksOnDisplay: []})
+                return
+            } 
             this.setState({ booksOnDisplay })
         }).catch(e => {
             console.log(e)
