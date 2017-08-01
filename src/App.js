@@ -26,14 +26,34 @@ class BooksApp extends Component {
         })
     }
     
+    getUniqueBooks = (booksOnDisplay) => {
+        const uniqueBookIds = new Set(booksOnDisplay.map(b => b.id))
+        return [...uniqueBookIds].map(id => booksOnDisplay.find(b => b.id === id))
+    }
+    
     queryBookLibrary = (query, max) => {
         this.setState({ query })
         BooksAPI.search(this.state.query.trim(), max).then((booksOnDisplay) => {
-            if(!booksOnDisplay || booksOnDisplay.error){
+            if(!booksOnDisplay || booksOnDisplay.error || booksOnDisplay.length === 0){
                 this.setState({ booksOnDisplay: []})
                 return
-            } 
-            this.setState({ booksOnDisplay })
+            }
+            const uniqueBooks = this.getUniqueBooks(booksOnDisplay)
+            /*.forEach(uBook => {
+                this.state.books.forEach(sBook => {
+                    if(uBook.id === sBook.id){
+                        uBook.shelf = sBook.shelf
+                    }
+                })
+            })*/
+            for(var i = 0; i < uniqueBooks.length; i++){
+                for(var j = 0; j < this.state.books.length; j++){
+                    if(uniqueBooks[i].id === this.state.books[j].id){
+                        uniqueBooks[i].shelf = this.state.books[j].shelf
+                    }
+                }
+            }
+            this.setState({ booksOnDisplay: uniqueBooks })
         }).catch(e => {
             console.log(e)
         })

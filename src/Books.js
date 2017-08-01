@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 class Books extends Component {
     
     render(){
-        const uniqueBookIds = new Set(this.props.books.map(b => b.id))
-        const books = [...uniqueBookIds].map(id => this.props.books.find(b => b.id === id))
+        //const uniqueBookIds = new Set(this.props.books.map(b => b.id))
+        //const books = [...uniqueBookIds].map(id => this.props.books.find(b => b.id === id))
+        const books = this.props.books
         
         return(
             <div className="bookshelf-books">

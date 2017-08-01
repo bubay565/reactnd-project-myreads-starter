@@ -13,7 +13,6 @@ class AddBooks extends Component {
     }
 
     render(){ 
-        console.log('Props: ', this.props)
         let booksOnDisplay = this.props.booksOnDisplay
         if(booksOnDisplay.length > 0){
             booksOnDisplay.sort(sortBy('title'))
