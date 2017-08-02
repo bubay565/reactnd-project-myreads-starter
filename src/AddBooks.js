@@ -27,7 +27,7 @@ class AddBooks extends Component {
                             type="text" 
                             placeholder="Search by title or author"
                             value={this.props.query}
-                            onChange={(event) => this.props.searchLibrary(event.target.value, 20)}
+                            onChange={(event) => setTimeout(this.props.searchLibrary(event.target.value, 20), 750)}
                         />
                     </div>
                 </div>

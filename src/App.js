@@ -31,6 +31,17 @@ class BooksApp extends Component {
         return [...uniqueBookIds].map(id => booksOnDisplay.find(b => b.id === id))
     }
     
+    updateSearchShelf = (uniqueBooks) => {
+        uniqueBooks.forEach(uBook => {
+            this.state.books.forEach(sBook => {
+                if(uBook.id === sBook.id){
+                    uBook.shelf = sBook.shelf
+                }
+            })
+        })
+        return uniqueBooks
+    }
+    
     queryBookLibrary = (query, max) => {
         this.setState({ query })
         BooksAPI.search(this.state.query.trim(), max).then((booksOnDisplay) => {
@@ -38,22 +49,8 @@ class BooksApp extends Component {
                 this.setState({ booksOnDisplay: []})
                 return
             }
-            const uniqueBooks = this.getUniqueBooks(booksOnDisplay)
-            /*.forEach(uBook => {
-                this.state.books.forEach(sBook => {
-                    if(uBook.id === sBook.id){
-                        uBook.shelf = sBook.shelf
-                    }
-                })
-            })*/
-            for(var i = 0; i < uniqueBooks.length; i++){
-                for(var j = 0; j < this.state.books.length; j++){
-                    if(uniqueBooks[i].id === this.state.books[j].id){
-                        uniqueBooks[i].shelf = this.state.books[j].shelf
-                    }
-                }
-            }
-            this.setState({ booksOnDisplay: uniqueBooks })
+            const uniqueBooks = this.getUniqueBooks(booksOnDisplay) 
+            this.setState({ booksOnDisplay: this.updateSearchShelf(uniqueBooks) })
         }).catch(e => {
             console.log(e)
         })
