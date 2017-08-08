@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import Books from './Books'
+import Shelf from './Shelf'
 
 class BookShelves extends Component {
     static propTypes = {
@@ -18,29 +19,23 @@ class BookShelves extends Component {
 
                 <div className="list-books-content">
                     <div>
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Currently Reading</h2>
-                            <Books 
-                                books={this.props.books.filter((book) => book.shelf === 'currentlyReading')}
-                                updateBookShelf={this.props.updateBookShelf}
-                            />                  
-                        </div>
+                        <Shelf 
+                            title={'Currently Reading'}
+                            books={this.props.books.filter((book) => book.shelf === 'currentlyReading')}
+                            updateBookShelf={this.props.updateBookShelf}
+                        />
+                        
+                        <Shelf 
+                            title={'Want To Read'}
+                            books={this.props.books.filter((book) => book.shelf === 'wantToRead')}
+                            updateBookShelf={this.props.updateBookShelf}
+                        />
 
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Want To Read</h2>
-                            <Books 
-                                books={this.props.books.filter((book) => book.shelf === 'wantToRead')}
-                                updateBookShelf={this.props.updateBookShelf}
-                            />    
-                        </div>
-
-                        <div className="bookshelf">
-                            <h2 className="bookshelf-title">Read</h2>
-                            <Books 
-                                books={this.props.books.filter((book) => book.shelf === 'read')}
-                                updateBookShelf={this.props.updateBookShelf}
-                            />
-                        </div>
+                        <Shelf 
+                            title={'Read'}
+                            books={this.props.books.filter((book) => book.shelf === 'read')}
+                            updateBookShelf={this.props.updateBookShelf}
+                        />
                     </div>
                 </div>
                 <div className="open-search">
