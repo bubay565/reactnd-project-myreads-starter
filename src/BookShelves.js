@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import Books from './Books'
 import Shelf from './Shelf'
 
 class BookShelves extends Component {
@@ -19,19 +18,19 @@ class BookShelves extends Component {
 
                 <div className="list-books-content">
                     <div>
-                        <Shelf 
+                        <Shelf
                             title={'Currently Reading'}
                             books={this.props.books.filter((book) => book.shelf === 'currentlyReading')}
                             updateBookShelf={this.props.updateBookShelf}
                         />
-                        
-                        <Shelf 
+
+                        <Shelf
                             title={'Want To Read'}
                             books={this.props.books.filter((book) => book.shelf === 'wantToRead')}
                             updateBookShelf={this.props.updateBookShelf}
                         />
 
-                        <Shelf 
+                        <Shelf
                             title={'Read'}
                             books={this.props.books.filter((book) => book.shelf === 'read')}
                             updateBookShelf={this.props.updateBookShelf}
